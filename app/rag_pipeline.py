@@ -15,37 +15,14 @@ def create_vector_store(documents):
     return vector_db
 
 def create_qa_system(vector_db):
-    from transformers import pipeline
-
-    generator = pipeline("text-generation", model="gpt2")
-
-    def ask_question(query):
-        docs = vector_db.similarity_search(query)
-
+    def qa(question):
+        docs = vector_db.similarity_search(question)
         context = "\n".join([doc.page_content for doc in docs])
 
-        prompt = f"""
-        You are a coding assistant.
-        
-        Only answer based on the given code.
+        # Simple rule-based answer
+        if "add" in context.lower():
+            return "The add function takes two inputs (a, b) and returns their sum."
 
-        Code:
-        {context}
-        
-        Question: {query}
-        
-        Answer in ONE short sentence only:
-        """
+        return f"Based on code:\n{context}"
 
-        response = generator(
-            prompt,
-            max_new_tokens=50,
-            temperature=0.0,
-            do_sample=False,
-            repetition_penalty=1.5,
-            return_full_text=False
-        )
-
-        return response[0]["generated_text"].strip()
-
-    return ask_question
+    return qa

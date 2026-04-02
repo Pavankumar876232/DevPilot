@@ -1,3 +1,7 @@
+import sys
+import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import streamlit as st
 from app.code_parser import load_codebase
 from app.rag_pipeline import create_vector_store, create_qa_system

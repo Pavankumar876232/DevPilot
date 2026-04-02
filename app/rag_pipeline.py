@@ -1,3 +1,4 @@
+# version 2 fix
 import os
 from transformers import pipeline
 from langchain_community.embeddings import HuggingFaceEmbeddings

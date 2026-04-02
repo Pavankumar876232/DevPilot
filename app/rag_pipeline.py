@@ -19,10 +19,15 @@ def create_qa_system(vector_db):
         docs = vector_db.similarity_search(question)
         context = "\n".join([doc.page_content for doc in docs])
 
-        # Simple rule-based answer
-        if "add" in context.lower():
-            return "The add function takes two inputs (a, b) and returns their sum."
+        question_lower = question.lower()
 
-        return f"Based on code:\n{context}"
+        # Smart rule-based answers
+        if "add" in question_lower:
+            return "The add function takes two parameters (a, b) and returns their sum (a + b)."
+
+        if "function" in question_lower:
+            return f"This function works as follows:\n{context}"
+
+        return f"Relevant code:\n{context}"
 
     return qa

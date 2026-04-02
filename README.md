@@ -45,7 +45,7 @@ cd DevPilot
 ## 📸 Screenshots
 
 ### UI
-![UI](Images/ui.png)
+![UI](images/ui.png)
 
 ### API
-![API](Images/api.png)
+![API](images/api.png)

@@ -1,30 +1,24 @@
 import streamlit as st
-import requests
-
-st.set_page_config(page_title="DevPilot", layout="centered")
+from app.code_parser import load_codebase
+from app.rag_pipeline import create_vector_store, create_qa_system
 
 st.title("🚀 DevPilot - AI Code Assistant")
 
-st.write("Ask questions about your codebase")
+@st.cache_resource
+def load_system():
+    docs = load_codebase("data/sample_repo")
+    vector_db = create_vector_store(docs)
+    qa = create_qa_system(vector_db)
+    return qa
 
-# Input box
-query = st.text_input("Enter your question:")
+qa = load_system()
 
-# Button
+question = st.text_input("Enter your question:")
+
 if st.button("Ask"):
-    if query:
-        try:
-            response = requests.get(
-                "http://127.0.0.1:8000/ask",
-                params={"query": query}
-            )
-
-            data = response.json()
-
-            st.subheader("💡 Answer:")
-            st.write(data["answer"])
-
-        except Exception as e:
-            st.error("Error connecting to backend. Make sure FastAPI is running.")
+    if question:
+        answer = qa(question)
+        st.success("💡 Answer:")
+        st.write(answer)
     else:
-        st.warning("Please enter a question.")
+        st.warning("Please enter a question")

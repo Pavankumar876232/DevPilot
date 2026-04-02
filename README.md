@@ -41,6 +41,7 @@ It uses Retrieval-Augmented Generation (RAG) to analyze code and generate intell
 ```bash
 git clone https://github.com/Pavankumar876232/DevPilot.git
 cd DevPilot
+```
 
 ## 📸 Screenshots
 

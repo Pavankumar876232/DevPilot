@@ -45,7 +45,7 @@ cd DevPilot
 ## 📸 Screenshots
 
 ### UI
-![UI](https://raw.githubusercontent.com/Pavankumar876232/DevPilot/main/images/ui.png)
+![UI](images/ui.png)
 
 ### API
-![API](https://raw.githubusercontent.com/Pavankumar876232/DevPilot/main/images/api.png)
+![API](images/api.png)

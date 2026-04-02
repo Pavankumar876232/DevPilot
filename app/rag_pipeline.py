@@ -20,14 +20,12 @@ def create_qa_system(vector_db):
         docs = vector_db.similarity_search(question)
         context = "\n".join([doc.page_content for doc in docs])
 
-        question_lower = question.lower()
-
-        # Smart rule-based answers
-        if "add" in question_lower:
-            return "The add function takes two parameters (a, b) and returns their sum (a + b)."
-
-        if "function" in question_lower:
-            return f"This function works as follows:\n{context}"
+        # Extract function name dynamically
+        if "def" in context:
+            lines = context.split("\n")
+            for line in lines:
+                if line.strip().startswith("def"):
+                    return f"This function is defined as:\n{line}\n\nIt performs the operation described in the code."
 
         return f"Relevant code:\n{context}"
 
